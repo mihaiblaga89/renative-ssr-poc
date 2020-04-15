@@ -43,7 +43,7 @@ const ScreenHome = (props) => {
         }, []);
     }
     return (
-        <View style={themeStyles.screen}>
+        <View className={props.className} style={themeStyles.screen}>
             <ScrollView
                 style={{ backgroundColor: bgColor }}
                 ref={scrollRef}
@@ -66,33 +66,35 @@ v
                 <Text style={themeStyles.textH3}>
                     {`pixelRatio: ${PixelRatio.get()}, ${PixelRatio.getFontScale()}`}
                 </Text>
-                <Button
-                    style={themeStyles.button}
-                    textStyle={themeStyles.buttonText}
-                    title="Try Me!"
-                    className="focusable"
-                    onPress={() => {
-                        setBgColor(bgColor === '#666666' ? Theme.color1 : '#666666');
-                    }}
-                    onEnterPress={() => {
-                        setBgColor(bgColor === '#666666' ? Theme.color1 : '#666666');
-                    }}
-                    onBecameFocused={handleFocus}
-                    onArrowPress={handleUp}
-                />
-                <Button
-                    style={themeStyles.button}
-                    textStyle={themeStyles.buttonText}
-                    title="Now Try Me!"
-                    className="focusable"
-                    onPress={() => {
-                        navigate('my-page', { replace: false });
-                    }}
-                    onEnterPress={() => {
-                        navigate('my-page', { replace: false });
-                    }}
-                    onBecameFocused={handleFocus}
-                />
+                <div className="button-container">
+                    <Button
+                        style={themeStyles.button}
+                        textStyle={themeStyles.buttonText}
+                        title="Try Me!"
+                        className="focusable"
+                        onPress={() => {
+                            setBgColor(bgColor === '#666666' ? Theme.color1 : '#666666');
+                        }}
+                        onEnterPress={() => {
+                            setBgColor(bgColor === '#666666' ? Theme.color1 : '#666666');
+                        }}
+                        onBecameFocused={handleFocus}
+                        onArrowPress={handleUp}
+                    />
+                    <Button
+                        style={themeStyles.button}
+                        textStyle={themeStyles.buttonText}
+                        title="Now Try Me!"
+                        className="focusable"
+                        onPress={() => {
+                            navigate('my-page', { replace: false });
+                        }}
+                        onEnterPress={() => {
+                            navigate('my-page', { replace: false });
+                        }}
+                        onBecameFocused={handleFocus}
+                    />
+                </div>
                 <FocusableView style={{ marginTop: 20, flexDirection: 'row' }} onBecameFocused={handleFocus}>
                     <Button
                         iconFont="fontAwesome"
@@ -120,6 +122,17 @@ v
                     />
                 </FocusableView>
             </ScrollView>
+                <style jsx>{`
+                    .button-container {
+                        display: flex;
+                        flex-direction: row;
+                    }
+                    @media (max-width: 767px) {
+                        .button-container {
+                            flex-direction: column;
+                        }
+                    }
+                `}</style>
         </View>
     );
 };
