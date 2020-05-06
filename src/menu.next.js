@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import classNames from 'classnames';
 import { Icon, Button, getScaledValue, useOpenDrawer, StyleSheet } from 'renative';
+
 import Theme, { themeStyles, hasHorizontalMenu, hasWebFocusableUI } from './theme';
 import { useRouter } from 'next/router'
 import useWindowWidth from './utils/useWindowHook';
+import AnimatedComponent from './utils/AnimatedComponent';
+import { slideDown, opacity } from './utils/animations'; 
 
 export const DrawerButton = (props) => {
     const openDrawer = useOpenDrawer(props);
@@ -38,34 +42,18 @@ const styles = StyleSheet.create({
     }
 });
 
-const Menu = (props) => {
+const Menu = ({ onClose }) => {
     const router = useRouter();
     const width = useWindowWidth();
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const isMobile = width < 767 && width > 0;
-    if (isMobile) return (
-        <div className="menu-container">
-            <span className="menu-text">HamburgerMenu</span>
-            <style jsx>{`
-                    .menu-container {
-                        padding-top: ${getScaledValue(40)}px;
-                        padding-left: ${getScaledValue(40)}px;
-                        width: ${Theme.menuWidth};
-                        height: ${Theme.menuHeight}px;
-                        background-color: ${Theme.color1};
-                    }
-                    .menu-text {
-                        color: #fff;
-                    }
-                `}
-            </style>
-        </div>
-    )
-    return (
-        <View className="menu-container">
-            <Text style={themeStyles.text}>
+   
+    const menu =  (
+        <>
+            {!isMobile && <Text style={themeStyles.text}>
                 Next
-            </Text>
+            </Text>}
             <Button
                 to="/"
                 title="Home"
@@ -77,6 +65,7 @@ const Menu = (props) => {
                 style={styles.button}
                 textStyle={styles.buttonText}
                 onPress={() => {
+                    setMobileMenuOpen(false);
                     router.push('/');
                 }}
                 onEnterPress={() => {
@@ -94,6 +83,7 @@ const Menu = (props) => {
                 style={styles.button}
                 textStyle={styles.buttonText}
                 onPress={() => {
+                    setMobileMenuOpen(false);
                     router.push('/my-page');
                 }}
                 onEnterPress={() => {
@@ -115,6 +105,7 @@ const Menu = (props) => {
             />
             <style jsx>{`
                 .menu-container {
+                    display: flex;
                     padding-top: ${getScaledValue(20)}px;
                     padding-left: ${getScaledValue(40)}px;
                     width: ${Theme.menuWidth};
@@ -124,8 +115,58 @@ const Menu = (props) => {
                     flex-direction: row;
                 }
             `}</style>
-        </View>
+        </>
     );
+
+     if (isMobile) return (
+         <>
+            <div className="menu-container">
+                <img onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="ham-icon" src='/menu.png' />
+            </div>
+            {mobileMenuOpen && (
+                <AnimatedComponent
+                    className={classNames("animation", { mobileMenuOpen })}
+                    animations={[slideDown, opacity]}
+                    delay={0.1}
+                    duration={0.5}            
+                >
+                    <div className="mobile-menu-wrapper">{menu}</div>
+                </AnimatedComponent>
+            )}
+            <style jsx>{`
+                        .animation {
+                            position: absolute;
+                            top: 70px;
+                            width: 100%;
+                            z-index: 10;
+                            height: 0;
+                        }
+                        .animation.mobileMenuOpen {
+                            height: 100%;
+                        }
+                        .mobile-menu-wrapper {
+                            height: 100%;
+                            background-color: ${Theme.color1};
+                        }
+                        .ham-icon {
+                            width: 30px;
+                            height: 30px;
+                        }
+                        .menu-container {
+                            padding: 20px;
+                            width: ${Theme.menuWidth};
+                            height: 30px;
+                            background-color: ${Theme.color1};
+                        }
+                        .menu-text {
+                            color: #fff;
+                        }
+                    `}
+                </style>
+        </>
+    )
+
+    return <div className="menu-container">{menu}</div>;
 };
 
 export default Menu;

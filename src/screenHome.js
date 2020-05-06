@@ -9,7 +9,7 @@ import icon from '../platformAssets/runtime/logo.png';
 
 const styles = StyleSheet.create({
     appContainerScroll: {
-        paddingTop: getScaledValue(50),
+        paddingTop: Api.engine === 'next' ? 'unset' : getScaledValue(50),
         flex: 1
     },
     image: {

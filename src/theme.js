@@ -1,4 +1,4 @@
-import { getScaledValue, isEngineWeb, isFactorMobile, isFactorDesktop,
+import { Api, getScaledValue, isEngineWeb, isFactorMobile, isFactorDesktop,
     isFactorTv, isEngineNative, isFactorBrowser, registerServiceWorker, StyleSheet } from 'renative';
 // import '../platformAssets/runtime/fontManager';
 
@@ -33,7 +33,8 @@ export const themeStyles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: getScaledValue(50),
+        paddingTop: Api.engine === 'next' ? 'unset' : getScaledValue(50),
+        paddingBottom: getScaledValue(50),
         minHeight: getScaledValue(300),
         alignSelf: 'stretch',
         width: '100%'
