@@ -7,8 +7,8 @@ kind: pipeline
 type: exec
 name: default
 
-# platform:
-#   os: darwin
+platform:
+  os: darwin
 
 steps:
   - name: greeting
