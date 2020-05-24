@@ -3,14 +3,11 @@ trigger:
     - master
 
 kind: pipeline
-type: ssh
+type: exec
 name: default
 
-server:
-  host: 1.2.3.4
-  user: root
-  password:
-    from_secret: password
+platform:
+  os: darwin
 
 steps:
   - name: greeting
