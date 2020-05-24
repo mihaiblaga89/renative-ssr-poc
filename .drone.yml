@@ -1,6 +1,7 @@
 trigger:
-  branch:
-    - master
+  ref:
+    - refs/heads/master
+    - refs/tags/*
 
 kind: pipeline
 type: exec
