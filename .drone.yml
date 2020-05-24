@@ -13,4 +13,4 @@ platform:
 steps:
   - name: greeting
     commands:
-      - echo hello worlds
+      - echo hello world
