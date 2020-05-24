@@ -1,5 +1,5 @@
 {
-    "name": "testNext",
+    "name": "test-next",
     "version": "0.1.0",
     "dependencies": {
         "@expo/next-adapter": "2.0.5",
