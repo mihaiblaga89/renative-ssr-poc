@@ -11,6 +11,9 @@ platform:
   os: darwin
 
 steps:
-  - name: greeting
+  - name: yarn
     commands:
-      - echo hello world
+      - yarn
+  - name: run on emu
+    commands:
+      - rnv run -p web -e next
