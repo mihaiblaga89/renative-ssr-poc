@@ -1,4 +1,4 @@
-# s
+# ss
 trigger:
   ref:
     - refs/heads/master
@@ -18,4 +18,4 @@ steps:
       - yarn
   - name: run on emu
     commands:
-      - rnv run -p web -e next
+      - npx rnv run -p web -e next
