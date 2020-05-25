@@ -1,4 +1,4 @@
-# ss
+# s
 trigger:
   ref:
     - refs/heads/master
