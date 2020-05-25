@@ -2,7 +2,7 @@ import React from 'react';
 import Menu from '../menu';
 
 import '../../styles/fonts.css';
-import '../../styles/global.scss';
+import '../../styles/global.css';
 
 export default function MyApp({ Component, pageProps }) {
     
